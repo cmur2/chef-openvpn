@@ -1,5 +1,4 @@
 
-# TODO: logrotate
 # TODO: pushing routes
 # TODO: better client configs
 

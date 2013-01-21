@@ -22,6 +22,8 @@
 
 ### use_community_repos
 
+### logrotate
+
 ## License
 
 chef-openvpn is licensed under the Apache License, Version 2.0. See LICENSE for more information.
