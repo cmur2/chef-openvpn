@@ -26,33 +26,19 @@ ifconfig-pool-persist /etc/openvpn/<%= @config_name %>/<%= @config_name %>.ipp
 <% end -%>
 
 <% if @config[:mode] == "routed" -%>
-<% if @config[:subnet] -%>
-server <%= @config[:subnet] %> <%= @config[:netmask] %>
-<% end -%>
-<% if @config[:subnet6] -%>
-server-ipv6 <%= @config[:subnet6] %>
-<% end -%>
+<%= "server #{@config[:subnet]} #{@config[:netmask]}" if @config[:subnet] %>
+<%= "server-ipv6 #{@config[:subnet6]}" if @config[:subnet6] %>
 <% end -%>
 
 <% if @config[:mode] == "bridged" -%>
-server-bridge <%= @config[:server_ip] %> <%= @config[:netmask] %> <%= @config[:dhcp_start] %> <%= @config[:dhcp_end] %>
+<%= "server-bridge #{@config[:server_ip]} #{@config[:netmask]} #{@config[:dhcp_start]} #{@config[:dhcp_end]}" %>
 <% end -%>
 
-<% if @config[:redirect_gateway] -%>
-push "redirect-gateway def1"
-<% end -%>
+<%= "push \"redirect-gateway def1\"" if @config[:redirect_gateway] %>
+<%= "push \"dhcp-option DNS #{@config[:push_dns]}\"" if @config[:push_dns_server] %>
 
-<% if @config[:push_dns_server] -%>
-push "dhcp-option DNS <%= @config[:push_dns] %>"
-<% end -%>
-
-<% if @config[:allow_duplicate_cn] -%>
-duplicate-cn
-<% end -%>
-
-<% if @config[:allow_client_to_client] -%>
-client-to-client
-<% end -%>
+<%= "duplicate-cn" if @config[:allow_duplicate_cn] %>
+<%= "client-to-client" if @config[:allow_client_to_client] %>
 
 keepalive 10 120
 

@@ -23,6 +23,10 @@ end
 configurtions = node[:openvpn][:configs]
 configurtions.each do |config_name,config|
 
+  if config[:mode] == "routed" and config[:subnet6] and not config[:subnet]
+    raise "OpenVPN configuration '#{config_name}': You need to specify an IPv4 subnet too when using an IPv6 subnet!"
+  end
+
   directory "/etc/openvpn/#{config_name}" do
     owner "root"
     group "openvpn"
