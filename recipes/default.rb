@@ -1,5 +1,6 @@
 
 # TODO: pushing routes
+# TODO: cert files as cookbook files
 # TODO: better client configs
 
 package "openvpn" do
@@ -71,7 +72,7 @@ configurtions.each do |config_name,config|
 
     template "/etc/openvpn/#{config_name}/auth.rb" do
       source "auth.rb.erb"
-      variables :config_name => config_name, :config => config, :users => users
+      variables :users => users
       owner "root"
       group "openvpn"
       mode 0770

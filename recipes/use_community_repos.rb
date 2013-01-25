@@ -1,9 +1,9 @@
 
 flavor = node[:openvpn][:community_repo_flavor]
 
-case node.platform
+case node[:platform]
 when "debian"
-  case node.platform_version.to_i
+  case node[:platform_version].to_i
   when 5
     apt_repository "openvpn-lenny" do
       uri "http://repos.openvpn.net/repos/apt/lenny-#{flavor}"
@@ -18,7 +18,7 @@ when "debian"
     end
   end
 when "ubuntu"
-  case node.platform_version
+  case node[:platform_version]
   when "10.04", "10.10", "11.04", "11.10"
     apt_repository "openvpn-lucid" do
       uri "http://repos.openvpn.net/repos/apt/lucid-#{flavor}"
