@@ -8,3 +8,7 @@ version          "1.0.0"
 
 #supports "debian"
 #supports "ubuntu"
+
+# Optional:
+#depends "logrotate"
+#depends "apt"
