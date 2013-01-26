@@ -33,29 +33,29 @@ configurtions.each do |config_name,config|
     mode 0770
   end
 
-  file "/etc/openvpn/#{config_name}/#{config_name}-dh.pem" do
-    content config[:dh]
+  cookbook_file "/etc/openvpn/#{config_name}/#{config_name}-dh.pem" do
+    content "#{config_name}-dh.pem"
     owner "root"
     group "openvpn"
     mode 0660
   end
 
-  file "/etc/openvpn/#{config_name}/#{config_name}-ca.crt" do
-    content config[:ca]
+  cookbook_file "/etc/openvpn/#{config_name}/#{config_name}-ca.crt" do
+    content "#{config_name}-ca.crt"
     owner "root"
     group "openvpn"
     mode 0660
   end
 
-  file "/etc/openvpn/#{config_name}/#{config_name}.crt" do
-    content config[:cert]
+  cookbook_file "/etc/openvpn/#{config_name}/#{config_name}.crt" do
+    content "#{config_name}.crt"
     owner "root"
     group "openvpn"
     mode 0660
   end
 
-  file "/etc/openvpn/#{config_name}/#{config_name}.key" do
-    content config[:key]
+  cookbook_file "/etc/openvpn/#{config_name}/#{config_name}.key" do
+    content "#{config_name}.key"
     owner "root"
     group "openvpn"
     mode 0600 # not group or others accesible
