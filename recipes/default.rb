@@ -16,7 +16,7 @@ end
 directory "/var/log/openvpn" do
   owner "root"
   group "root"
-  mode 0755
+  mode 00755
 end
 
 # setup each config
@@ -30,35 +30,35 @@ configurtions.each do |config_name,config|
   directory "/etc/openvpn/#{config_name}" do
     owner "root"
     group "openvpn"
-    mode 0770
+    mode 00770
   end
 
   cookbook_file "/etc/openvpn/#{config_name}/#{config_name}-dh.pem" do
     source "#{config_name}-dh.pem"
     owner "root"
     group "openvpn"
-    mode 0660
+    mode 00660
   end
 
   cookbook_file "/etc/openvpn/#{config_name}/#{config_name}-ca.crt" do
     source "#{config_name}-ca.crt"
     owner "root"
     group "openvpn"
-    mode 0660
+    mode 00660
   end
 
   cookbook_file "/etc/openvpn/#{config_name}/#{config_name}.crt" do
     source "#{config_name}.crt"
     owner "root"
     group "openvpn"
-    mode 0660
+    mode 00660
   end
 
   cookbook_file "/etc/openvpn/#{config_name}/#{config_name}.key" do
     source "#{config_name}.key"
     owner "root"
     group "openvpn"
-    mode 0600 # not group or others accesible
+    mode 00600 # not group or others accesible
   end
 
   if (config[:auth][:type] == "cert_passwd") or (config[:auth][:type] == "passwd")
@@ -75,7 +75,7 @@ configurtions.each do |config_name,config|
       variables :users => users
       owner "root"
       group "openvpn"
-      mode 0770
+      mode 00770
     end
   end
 
@@ -84,7 +84,7 @@ configurtions.each do |config_name,config|
     variables :config_name => config_name, :config => config
     owner "root"
     group "openvpn"
-    mode 0660
+    mode 00660
     notifies :restart, "service[openvpn]"
   end
 end

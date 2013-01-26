@@ -6,7 +6,7 @@ configurtions.each do |config_name,config|
   directory "/etc/openvpn/#{config_name}/users" do
     owner "root"
     group "openvpn"
-    mode 0770
+    mode 00770
   end
 
   users_databag_name = "#{config_name}-users".gsub(/\./, '_')
@@ -18,7 +18,7 @@ configurtions.each do |config_name,config|
       source "#{config_name}-ca.crt"
       owner "root"
       group "openvpn"
-      mode 0660
+      mode 00660
     end
 
     if (config[:auth][:type] == "cert") or (config[:auth][:type] == "cert_passwd")
@@ -26,14 +26,14 @@ configurtions.each do |config_name,config|
         content user['cert']
         owner "root"
         group "openvpn"
-        mode 0660
+        mode 00660
       end
 
       file "/etc/openvpn/#{config_name}/users/#{config_name}-#{user_name}.key" do
         content user['key']
         owner "root"
         group "openvpn"
-        mode 0660
+        mode 00660
       end
     end
 
@@ -42,7 +42,7 @@ configurtions.each do |config_name,config|
       variables :config_name => config_name, :config => config, :user_name => user_name
       owner "root"
       group "openvpn"
-      mode 0660
+      mode 00660
     end
   end
 end
