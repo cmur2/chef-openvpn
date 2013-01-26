@@ -15,7 +15,7 @@ configurtions.each do |config_name,config|
     user_name = user['id']
 
     cookbook_file "/etc/openvpn/#{config_name}/users/#{config_name}-#{user_name}-ca.crt" do
-      content "#{config_name}-ca.crt"
+      source "#{config_name}-ca.crt"
       owner "root"
       group "openvpn"
       mode 0660
