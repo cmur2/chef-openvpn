@@ -72,7 +72,7 @@ The certificate files needed for the server should be placed in the cookbook's f
 * *config_name*.crt - local peer's signed certificate in .pem format
 * *config_name*.key - local  peer's  private  key in .pem format
 
-Each authentication mode requires you to specify your users database in a databag named '*config_name*-users' (dots transformed to underscores) that contains one item per user (id is the username). A user's password is stored at the 'pass' key. A user's certificate and key are stored at the 'cert' and 'key' keys in the databag item.
+Each authentication mode requires you to specify your users database in a databag named *config_name*-users (dots transformed to underscores) that contains one item per user (id is the username). A user's password is stored at the 'pass' key. A user's certificate and key are stored at the 'cert' and 'key' keys in the databag item.
 
 ### users
 
