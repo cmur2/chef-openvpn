@@ -2,7 +2,7 @@
 
 ## Description
 
-A multi-configuration OpenVPN server cookbook featuring IPv6 support and easy setup of client files.
+A multi-configuration OpenVPN server cookbook featuring IPv6 support and easy generation of client configuration files.
 
 ## Usage
 
