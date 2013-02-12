@@ -2,7 +2,7 @@
 
 ## Description
 
-A multi-configuration OpenVPN server cookbook featuring IPv6 support and easy generation of client configuration files.
+A multi-configuration OpenVPN client/server cookbook featuring IPv6 support and easy generation of client configuration files.
 
 ## Usage
 
@@ -20,7 +20,7 @@ It should work on all OSes that provide a (recent, versions above 2.0) openvpn p
 
 ### default
 
-Configures and starts an OpenVPN for each configuration (config name => config hash) found in 'node[:openvpn][:configs]'. A configuration may contain several options such as:
+Configures and starts an OpenVPN server for each configuration (config name => config hash) found in 'node[:openvpn][:configs]'. A configuration may contain several options such as:
 
 * config[:port] - port number the server listens on
 * config[:proto] - 'udp' or 'tcp'
@@ -70,7 +70,7 @@ The certificate files needed for the server should be placed in the cookbook's f
 * *config_name*-dh.pem - file containing Diffie Hellman parameters in .pem format
 * *config_name*-ca.crt - certificate authority (CA) file in .pem format
 * *config_name*.crt - local peer's signed certificate in .pem format
-* *config_name*.key - local  peer's  private  key in .pem format
+* *config_name*.key - local  peer's private key in .pem format
 
 Each authentication mode requires you to specify your users database in a databag named *config_name*-users (dots transformed to underscores) that contains one item per user (id is the username). A user's password is stored at the 'pass' key. A user's certificate and key are stored at the 'cert' and 'key' keys in the databag item.
 
@@ -78,6 +78,20 @@ Each authentication mode requires you to specify your users database in a databa
 
 Generates OpenVPN configuration stub files in a subdirectory of the configuration's directory on the server. All known options will be prefilled but in a client OS-independent manner (e.g. for windows clients some options are missing). Plans are to extend this to even generate Windows-specific or Tunnelblick-specific files.
 Next to the configuration file all needed certificates and keys are stored.
+
+### client
+
+This works nearly as the default recipe and configures and starts an OpenVPN client for each configuration (config name => config hash) found in 'node[:openvpn][:client_configs]'. A configuration may contain several options such as:
+
+* config[:user_name] - the user_name the server awaits (used for identifying need cert and key files)
+* config[:auth][:type] - 'cert', 'cert_passwd' or 'passwd' - combines client certificates with user passwords if enabled
+
+The certificate files should be placed in the cookbook's files directory (or via an overlay site-cookbooks directory that leaves the original cookbook untouched) as follows:
+
+* *config_name*-*user_name*.conf - configuration file for this client (manually crafted or generated via users recipe)
+* *config_name*-ca.crt - server's CA certificate
+* *config_name*-*user_name*.crt - client's signed certificate in .pem format
+* *config_name*-*user_name*.key - client's private key in .pem format
 
 ### use_community_repos
 
