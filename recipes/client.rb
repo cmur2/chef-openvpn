@@ -19,6 +19,9 @@ end
 configurtions = node[:openvpn][:client_configs]
 configurtions.each do |config_name,config|
 
+  # user_name required for given vpn server/config
+  user_name = config[:user_name]
+
   cookbook_file "/etc/openvpn/#{config_name}-#{user_name}-ca.crt" do
     source "#{config_name}-ca.crt"
     owner "root"
