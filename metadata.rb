@@ -6,9 +6,8 @@ description      "A multi-configuration OpenVPN server cookbook featuring IPv6 s
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "1.0.0"
 
-#supports "debian"
-#supports "ubuntu"
+suggests "logrotate" # for openvpn::logrotate
+suggests "apt" # for openvpn::use_community_repos
 
-# Optional:
-#depends "logrotate"
-#depends "apt"
+supports "debian"
+supports "ubuntu"
