@@ -6,9 +6,9 @@ A multi-configuration OpenVPN client/server cookbook featuring IPv6 support and 
 
 ## Usage
 
-Include the openvpn::default target to your runlist and do further configuration via node's attributes. To automatically generate client configuration file stubs include the openvpn::users target. With openvpn::logrotate your logs (of all configurations) will be automatically rotated if the logrotate cookbook is present.
+Include `recipe[openvpn::default]` in your `run_list` and do further configuration via node attributes. To automatically generate client configuration file stubs include `recipe[openvpn::users]`. With `recipe[openvpn::logrotate]` your logs (of all configurations) will be automatically rotated if the logrotate cookbook is present. To setup one or multiple OpenVPN clients use `recipe[openvpn::client]`.
 
-For full, out-of-the-box IPv6 support you will need OpenVPN 2.3 or higher which is not available on older versions of Debian and Ubuntu - therefore and for those who only want more recent OpenVPN packages on their system the openvpn::use_community_repos target registers new APT repositories maintained by the OpenVPN community (needs the apt cookbook).
+For full, out-of-the-box IPv6 support you will need OpenVPN 2.3 or higher which is not available on older versions of Debian and Ubuntu - therefore and for those who only want more recent OpenVPN packages on their system the `recipe[openvpn::use_community_repos]` registers new APT repositories maintained by the OpenVPN community (needs the apt cookbook).
 
 ## Requirements
 
@@ -20,26 +20,26 @@ It should work on all OSes that provide a (recent, versions above 2.0) openvpn p
 
 ### default
 
-Configures and starts an OpenVPN server for each configuration (config name => config hash) found in 'node[:openvpn][:configs]'. A configuration may contain several options such as:
+Configures and starts an OpenVPN server for each configuration (config name => config hash) found in `node["openvpn"]["configs"]`. A configuration may contain several options such as:
 
-* config[:port] - port number the server listens on
-* config[:proto] - 'udp' or 'tcp'
-* config[:dev] - 'tun', 'tap' or a specific device like 'tun0'
-* config[:mode] - 'routed' (uses server directive) or 'bridged' (uses server-bridge directive)
-* config[:remote_host] - host name that clients can use to reach the server
-* config[:remote_port] - port that clients can use to reach the server (may be omitted, defaults to config[:port])
-* config[:subnet] - the IPv4 subnet (*don't* use CIDR here) used for VPN addresses in 'routed' mode
-* config[:subnet6] - the IPv6 subnet (use CIDR here) used for VPN addresses in 'routed' mode - requires OpenVPN 2.3 or higher
-* config[:server_ip] - the server's VPN address in 'bridged' mode
-* config[:dhcp_start] - the lower bound for DHCP addresses in 'bridged' mode
-* config[:dhcp_end] - the upper bound for DHCP addresses in 'bridged' mode
-* config[:netmask] - the VPN internal IPv4 netmask, applies for 'routed' and 'bridged' mode
-* config[:auth][:type] - 'cert', 'cert_passwd' or 'passwd' - combines client certificates with user passwords if enabled
-* config[:redirect_gateway] - may be omitted, if specified and true pushes redirect-gateway option to clients
-* config[:push_dns_server] - may be omitted, if specified and true pushes the DNS server from 'config[:push_dns]' to clients
-* config[:push_dns] - DNS server to be pushed to clients if enabled
-* config[:allow_duplicate_cn] - may be omitted, if specified and true allows duplicate common names of clients
-* config[:allow_client_to_client] - may be omitted, if specified and true allows client-to-client traffic
+* config["port"] - port number the server listens on
+* config["proto"] - 'udp' or 'tcp'
+* config["dev"] - 'tun', 'tap' or a specific device like 'tun0'
+* config["mode"] - 'routed' (uses server directive) or 'bridged' (uses server-bridge directive)
+* config["remote_host"] - host name that clients can use to reach the server
+* config["remote_port"] - port that clients can use to reach the server (may be omitted, defaults to config["port"])
+* config["subnet"] - the IPv4 subnet (*don't* use CIDR here) used for VPN addresses in 'routed' mode
+* config["subnet6"] - the IPv6 subnet (use CIDR here) used for VPN addresses in 'routed' mode - requires OpenVPN 2.3 or higher
+* config["server_ip"] - the server's VPN address in 'bridged' mode
+* config["dhcp_start"] - the lower bound for DHCP addresses in 'bridged' mode
+* config["dhcp_end"] - the upper bound for DHCP addresses in 'bridged' mode
+* config["netmask"] - the VPN internal IPv4 netmask, applies for 'routed' and 'bridged' mode
+* config["auth"]["type"] - 'cert', 'cert_passwd' or 'passwd' - combines client certificates with user passwords if enabled
+* config["redirect_gateway"] - may be omitted, if specified and true pushes redirect-gateway option to clients
+* config["push_dns_server"] - may be omitted, if specified and true pushes the DNS server from config["push_dns"] to clients
+* config["push_dns"] - DNS server to be pushed to clients if enabled
+* config["allow_duplicate_cn"] - may be omitted, if specified and true allows duplicate common names of clients
+* config["allow_client_to_client"] - may be omitted, if specified and true allows client-to-client traffic
 
 There are no defaults for this attributes so missing specific attributes may lead to errors.
 
@@ -81,10 +81,10 @@ Next to the configuration file all needed certificates and keys are stored.
 
 ### client
 
-This works nearly as the default recipe and configures and starts an OpenVPN client for each configuration (config name => config hash) found in 'node[:openvpn][:client_configs]'. A configuration may contain several options such as:
+This works nearly as the default recipe and configures and starts an OpenVPN client for each configuration (client config name => config hash) found in `node["openvpn"]["client_configs"]`. A configuration may contain several options such as:
 
-* config[:user_name] - the user_name the server awaits (used for identifying need cert and key files)
-* config[:auth][:type] - 'cert', 'cert_passwd' or 'passwd' - combines client certificates with user passwords if enabled
+* config["user_name"] - the user_name the server awaits (used for identifying need cert and key files)
+* config["auth"]["type"] - 'cert', 'cert_passwd' or 'passwd' - combines client certificates with user passwords if enabled
 
 The certificate files should be placed in the cookbook's files directory (or via an overlay site-cookbooks directory that leaves the original cookbook untouched) as follows:
 
@@ -97,7 +97,7 @@ The certificate files should be placed in the cookbook's files directory (or via
 
 When run on supported platforms (Debian, Ubuntu) adds a new APT repository that uses the OpenVPN community repos. Most times you may choose between the two flavors stable (default) or snapshots (later is needed for OpenVPN 2.3 on Debian Squeeze).
 
-* node[:openvpn][:community_repo_flavor] - 'stable' or 'snapshots' (default is 'snapshots')
+* node["openvpn"]["community_repo_flavor"] - 'stable' or 'snapshots' (default is 'snapshots')
 
 ### logrotate
 
