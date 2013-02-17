@@ -33,11 +33,14 @@ configurtions.each do |config_name,config|
     mode 00770
   end
 
-  cookbook_file "/etc/openvpn/#{config_name}/#{config_name}-dh.pem" do
-    source "#{config_name}-dh.pem"
-    owner "root"
-    group "openvpn"
-    mode 00660
+  unless ::File.exists?("/etc/openvpn/#{config_name}/#{config_name}-dh.pem") do
+    require 'openssl'
+    file "/etc/openvpn/#{config_name}/#{config_name}-dh.pem" do
+      content OpenSSL::PKey::DH.new(config[:dh_keysize]).to_s
+      owner "root"
+      group "openvpn"
+      mode 00660
+    end
   end
 
   cookbook_file "/etc/openvpn/#{config_name}/#{config_name}-ca.crt" do

@@ -20,7 +20,7 @@ It should work on all OSes that provide a (recent, versions above 2.0) openvpn p
 
 ### default
 
-Configures and starts an OpenVPN server for each configuration (config name => config hash) found in `node["openvpn"]["configs"]`. A configuration may contain several options such as:
+Configures and starts an OpenVPN server for each configuration (config name => config hash) found in `node["openvpn"]["configs"]`. A configuration may contain several options (most of them being required as long as not stated otherwise) such as:
 
 * config["port"] - port number the server listens on
 * config["proto"] - 'udp' or 'tcp'
@@ -35,6 +35,7 @@ Configures and starts an OpenVPN server for each configuration (config name => c
 * config["dhcp_end"] - the upper bound for DHCP addresses in 'bridged' mode
 * config["netmask"] - the VPN internal IPv4 netmask, applies for 'routed' and 'bridged' mode
 * config["auth"]["type"] - 'cert', 'cert_passwd' or 'passwd' - combines client certificates with user passwords if enabled
+* config["dh_keysize"] - the number of bits generated for the Diffie Hellman key file 
 * config["redirect_gateway"] - may be omitted, if specified and true pushes redirect-gateway option to clients
 * config["push_dns_server"] - may be omitted, if specified and true pushes the DNS server from config["push_dns"] to clients
 * config["push_dns"] - DNS server to be pushed to clients if enabled
@@ -67,7 +68,6 @@ Example:
 
 The certificate files needed for the server should be placed in the cookbook's files directory (or via an overlay site-cookbooks directory that leaves the original cookbook untouched) as follows:
 
-* *config_name*-dh.pem - file containing Diffie Hellman parameters in .pem format
 * *config_name*-ca.crt - certificate authority (CA) file in .pem format
 * *config_name*.crt - local peer's signed certificate in .pem format
 * *config_name*.key - local  peer's private key in .pem format
