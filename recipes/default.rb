@@ -33,7 +33,7 @@ configurtions.each do |config_name,config|
     mode 00770
   end
 
-  unless ::File.exists?("/etc/openvpn/#{config_name}/#{config_name}-dh.pem") do
+  unless ::File.exists?("/etc/openvpn/#{config_name}/#{config_name}-dh.pem")
     require 'openssl'
     file "/etc/openvpn/#{config_name}/#{config_name}-dh.pem" do
       content OpenSSL::PKey::DH.new(config[:dh_keysize]).to_s

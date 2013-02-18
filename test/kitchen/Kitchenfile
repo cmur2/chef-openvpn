@@ -1,3 +1,12 @@
-cookbook "openvpn" do
 
+platform :debian do
+  version "6.0.6" do
+    box "squeeze32"
+    # locally importet into vagrant, no download!
+    box_url "http://bogus.url"
+  end
+end
+
+cookbook "openvpn" do
+  exclude :platform => 'ubuntu'
 end
