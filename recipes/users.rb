@@ -19,6 +19,7 @@ configurtions.each do |config_name,config|
       owner "root"
       group "openvpn"
       mode 00660
+      cookbook config[:file_cookbook] if config[:file_cookbook]
     end
 
     if (config[:auth][:type] == "cert") or (config[:auth][:type] == "cert_passwd")

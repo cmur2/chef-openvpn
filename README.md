@@ -36,6 +36,7 @@ Configures and starts an OpenVPN server for each configuration (config name => c
 * config["netmask"] - the VPN internal IPv4 netmask, applies for 'routed' and 'bridged' mode
 * config["auth"]["type"] - 'cert', 'cert_passwd' or 'passwd' - combines client certificates with user passwords if enabled
 * config["dh_keysize"] - the number of bits generated for the Diffie Hellman key file 
+* config["file_cookbook"] - may be omitted, if specified will be used as the name of a cookbook where certificates and key file will be loaded from instead of the current cookbook
 * config["redirect_gateway"] - may be omitted, if specified and true pushes redirect-gateway option to clients
 * config["push_dns_server"] - may be omitted, if specified and true pushes the DNS server from config["push_dns"] to clients
 * config["push_dns"] - DNS server to be pushed to clients if enabled

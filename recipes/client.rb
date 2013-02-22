@@ -27,6 +27,7 @@ configurtions.each do |config_name,config|
     owner "root"
     group "openvpn"
     mode 00660
+    cookbook config[:file_cookbook] if config[:file_cookbook]
   end
 
   if (config[:auth][:type] == "cert") or (config[:auth][:type] == "cert_passwd")
@@ -35,6 +36,7 @@ configurtions.each do |config_name,config|
       owner "root"
       group "openvpn"
       mode 00660
+      cookbook config[:file_cookbook] if config[:file_cookbook]
     end
 
     cookbook_file "/etc/openvpn/#{config_name}-#{user_name}.key" do
@@ -42,6 +44,7 @@ configurtions.each do |config_name,config|
       owner "root"
       group "openvpn"
       mode 00660
+      cookbook config[:file_cookbook] if config[:file_cookbook]
     end
   end
 
@@ -50,6 +53,7 @@ configurtions.each do |config_name,config|
     owner "root"
     group "openvpn"
     mode 00660
+    cookbook config[:file_cookbook] if config[:file_cookbook]
   end
 end
 
