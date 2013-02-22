@@ -9,4 +9,6 @@ end
 
 cookbook "openvpn" do
   exclude :platform => 'ubuntu'
+  # call test cookbook
+  run_list_extras ['openvpn_test::default']
 end
