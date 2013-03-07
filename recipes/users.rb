@@ -24,17 +24,19 @@ configurtions.each do |config_name,config|
 
     if (config[:auth][:type] == "cert") or (config[:auth][:type] == "cert_passwd")
       file "/etc/openvpn/#{config_name}/users/#{config_name}-#{user_name}.crt" do
-        content user['cert']
+        source "#{config_name}-#{user_name}.crt"
         owner "root"
         group "openvpn"
         mode 00660
+        cookbook config[:file_cookbook] if config[:file_cookbook]
       end
 
       file "/etc/openvpn/#{config_name}/users/#{config_name}-#{user_name}.key" do
-        content user['key']
+        source "#{config_name}-#{user_name}.key"
         owner "root"
         group "openvpn"
         mode 00660
+        cookbook config[:file_cookbook] if config[:file_cookbook]
       end
     end
 
