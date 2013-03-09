@@ -81,11 +81,13 @@ Generates OpenVPN configuration stub files in a subdirectory of the configuratio
 Next to the configuration file all needed certificates and keys are stored.
 
 This recipe will generate the user's configuration files in the *users* subdirectory of the server configuration directory it belongs to.
-It requires a databag named *config_name*-users (dots transformed to underscores) that contains one item per user (id is the username) and the following cookbook files per user:
+It requires a databag named *config_name*-users (dots transformed to underscores) that contains one item per user and the following cookbook files per user:
 
-* *config_name*-ca.crt - server's CA certificate
+* *config_name*-ca.crt - server's CA certificate (may/should be present for the server config too)
 * *config_name*-*user_name*.crt - client's signed certificate in .pem format
 * *config_name*-*user_name*.key - client's private key in .pem format
+
+The **username** comes from the 'name' property of each item if given, else the databag ID (which sufferes from some limitation, e.g. underscores are not allowed) will be used automatically as username.
 
 ### client
 
