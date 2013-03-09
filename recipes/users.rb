@@ -12,7 +12,8 @@ configurtions.each do |config_name,config|
   users_databag_name = "#{config_name}-users".gsub(/\./, '_')
   data_bag(users_databag_name).each do |item|
     user = data_bag_item(users_databag_name, item)
-    user_name = user['id']
+    # use name property if given, else fall back to id
+    user_name = user['name'] ? user['name'] : user['id']
 
     cookbook_file "/etc/openvpn/#{config_name}/users/#{config_name}-#{user_name}-ca.crt" do
       source "#{config_name}-ca.crt"

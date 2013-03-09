@@ -73,7 +73,9 @@ configurtions.each do |config_name,config|
     users_databag_name = "#{config_name}-users".gsub(/\./, '_')
     data_bag(users_databag_name).each do |item|
       user = data_bag_item(users_databag_name, item)
-      users[user['id']] = user['pass']
+      # use name property if given, else fall back to id
+      user_name = user['name'] ? user['name'] : user['id']
+      users[user_name] = user['pass']
     end
 
     template "/etc/openvpn/#{config_name}/auth.rb" do
