@@ -1,5 +1,7 @@
 # chef-openvpn
 
+[![Build Status](https://travis-ci.org/cmur2/chef-openvpn.png)](https://travis-ci.org/cmur2/chef-openvpn)
+
 ## Description
 
 A multi-configuration OpenVPN client/server cookbook featuring IPv6 support and easy generation of client configuration files.
