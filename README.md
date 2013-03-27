@@ -37,7 +37,7 @@ Configures and starts an OpenVPN server for each configuration (config name => c
 * config["dhcp_end"] - the upper bound for DHCP addresses in 'bridged' mode
 * config["netmask"] - the VPN internal IPv4 netmask, applies for 'routed' and 'bridged' mode
 * config["auth"]["type"] - 'cert', 'cert_passwd' or 'passwd' - combines client certificates with user passwords if enabled
-* config["dh_keysize"] - the number of bits generated for the Diffie Hellman key file 
+* config["dh_keysize"] - may be omitted, if specified will be the number of bits generated for the Diffie Hellman key file, if missing a cookbook_file has to be provided
 * config["file_cookbook"] - may be omitted, if specified will be used as the name of a cookbook where certificates and key file will be loaded from instead of the current cookbook
 * config["redirect_gateway"] - may be omitted, if specified and true pushes redirect-gateway option to clients
 * config["push_dns_server"] - may be omitted, if specified and true pushes the DNS server from config["push_dns"] to clients
@@ -74,6 +74,7 @@ The certificate files needed for the server should be placed in the cookbook's f
 * *config_name*-ca.crt - certificate authority (CA) file in .pem format
 * *config_name*.crt - local peer's signed certificate in .pem format
 * *config_name*.key - local  peer's private key in .pem format
+* optional: *config_name*-dh.pem - file containing Diffie Hellman parameters in .pem format (needed only if config["dh_keysize"] is missing)
 
 Each authentication mode requires you to specify your users database in a databag named *config_name*-users (dots transformed to underscores) that contains one item per user (id is the username). A user's password is stored at the 'pass' key.
 

@@ -3,9 +3,7 @@
 # TODO: cert files as cookbook files
 # TODO: better client configs
 
-package "openvpn" do
-  action :upgrade
-end
+package "openvpn"
 
 # create openvpn user and group
 user "openvpn"
@@ -33,13 +31,23 @@ configurtions.each do |config_name,config|
     mode 00770
   end
 
-  unless ::File.exists?("/etc/openvpn/#{config_name}/#{config_name}-dh.pem")
-    require 'openssl'
-    file "/etc/openvpn/#{config_name}/#{config_name}-dh.pem" do
-      content OpenSSL::PKey::DH.new(config[:dh_keysize]).to_s
+  if config[:dh_keysize]
+    unless ::File.exists?("/etc/openvpn/#{config_name}/#{config_name}-dh.pem")
+      require 'openssl'
+      file "/etc/openvpn/#{config_name}/#{config_name}-dh.pem" do
+        content OpenSSL::PKey::DH.new(config[:dh_keysize]).to_s
+        owner "root"
+        group "openvpn"
+        mode 00660
+      end
+    end
+  else
+    cookbook_file "/etc/openvpn/#{config_name}/#{config_name}-dh.pem" do
+      source "#{config_name}-dh.pem"
       owner "root"
       group "openvpn"
       mode 00660
+      cookbook config[:file_cookbook] if config[:file_cookbook]
     end
   end
 
