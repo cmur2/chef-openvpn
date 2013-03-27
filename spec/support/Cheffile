@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+site 'http://community.opscode.com/api/v1'
+
+cookbook 'logrotate'
+
+cookbook 'apt',
+  :git => 'https://github.com/opscode-cookbooks/apt'

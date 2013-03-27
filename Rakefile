@@ -1,4 +1,9 @@
 
+# use rspec
+require 'rspec/core/rake_task'
+
+RSpec::Core::RakeTask.new(:spec)
+
 # try to use foodcritic
 begin
   require 'foodcritic'
@@ -7,7 +12,7 @@ begin
     task.options = { :fail_tags => [ 'any' ], :tags => [ '~FC007' ] }
   end
 
-  task :default => [ :foodcritic ]
+  task :default => [ :foodcritic, :spec ]
 rescue LoadError
-  task :default => []
+  task :default => [ :spec ]
 end

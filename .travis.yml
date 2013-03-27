@@ -2,8 +2,7 @@ language: ruby
 
 rvm:
   - 1.9.3
-  - 1.8.7
 
 before_script:
   - ln -s chef-openvpn ../openvpn
-  - if echo $RUBY_VERSION | grep 1.8.7 >/dev/null; then rvm rubygems 1.8.25; gem --version; fi
+  - cd spec/support/; librarian-chef install; cd ../..
