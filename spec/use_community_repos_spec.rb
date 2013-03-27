@@ -1,4 +1,4 @@
-require 'chefspec'
+require 'spec_helper'
 
 describe 'openvpn::use_community_repos' do
   let(:chef_runner) do
