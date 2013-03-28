@@ -62,7 +62,7 @@ describe 'openvpn::client' do
         expect(chef_run).to create_file_with_content "/etc/openvpn/#{config_name}-foo.conf", ""
       end
       
-      it 'creates necessary cert/key files' do
+      it 'creates necessary cert/key files if needed' do
         if config_name == 'test12' or config_name == 'test13'
           expect(chef_run).to create_file_with_content "/etc/openvpn/#{config_name}-foo-ca.crt", ""
           expect(chef_run).to create_file_with_content "/etc/openvpn/#{config_name}-foo.crt", ""
