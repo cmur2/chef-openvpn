@@ -1,7 +1,5 @@
 
-package "openvpn" do
-  action :upgrade
-end
+package "openvpn"
 
 # create openvpn user and group
 user "openvpn"

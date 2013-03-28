@@ -98,6 +98,7 @@ This works nearly as the default recipe and configures and starts an OpenVPN cli
 
 * config["user_name"] - the user_name the server awaits (used for identifying need cert and key files)
 * config["auth"]["type"] - 'cert', 'cert_passwd' or 'passwd' - combines client certificates with user passwords if enabled
+* config["file_cookbook"] - may be omitted, if specified will be used as the name of a cookbook where certificates and key file will be loaded from instead of the current cookbook
 
 The certificate files should be placed in the cookbook's files directory (or via an overlay site-cookbooks directory that leaves the original cookbook untouched) as follows:
 
