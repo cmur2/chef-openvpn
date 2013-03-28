@@ -3,6 +3,9 @@ language: ruby
 rvm:
   - 1.9.3
 
+env:
+  - RUBYOPT=W0
+
 before_script:
   - ln -s chef-openvpn ../openvpn
   - cd spec/support/; librarian-chef install; cd ../..
