@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe 'openvpn::client' do
   let(:chef_runner) do
-    cb_path = [Pathname.new(File.join(File.dirname(__FILE__), '..', '..')).cleanpath.to_s, 'spec/support/cookbooks', 'spec/support/my-cookbooks']
     runner = ChefSpec::ChefRunner.new(:cookbook_path => cb_path)
     runner.node.set['openvpn']['client_configs'] = {
       'test11' => {

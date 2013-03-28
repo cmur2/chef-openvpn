@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe 'openvpn::logrotate' do
   let(:chef_runner) do
-    cb_path = [Pathname.new(File.join(File.dirname(__FILE__), '..', '..')).cleanpath.to_s, 'spec/support/cookbooks', 'spec/support/my-cookbooks']
     ChefSpec::ChefRunner.new(:cookbook_path => cb_path, :step_into => ['logrotate_app'])
   end
 

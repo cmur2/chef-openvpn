@@ -1,4 +1,8 @@
 
+def cb_path
+  [Pathname.new(File.join(File.dirname(__FILE__), '..', '..', '..')).cleanpath.to_s, 'spec/support/cookbooks', 'spec/support/my-cookbooks']
+end
+
 def configs
   ["test1", "test2", "test3"]
 end
