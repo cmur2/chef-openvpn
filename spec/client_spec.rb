@@ -3,29 +3,7 @@ require 'spec_helper'
 describe 'openvpn::client' do
   let(:chef_runner) do
     runner = ChefSpec::ChefRunner.new(:cookbook_path => cb_path)
-    runner.node.set['openvpn']['client_configs'] = {
-      'test11' => {
-        :user_name => 'foo',
-        :auth => {
-          :type => 'passwd'
-        },
-        :file_cookbook => 'openvpn-files'
-      },
-      'test12' => {
-        :user_name => 'foo',
-        :auth => {
-          :type => 'cert_passwd'
-        },
-        :file_cookbook => 'openvpn-files'
-      },
-      'test13' => {
-        :user_name => 'foo',
-        :auth => {
-          :type => 'cert'
-        },
-        :file_cookbook => 'openvpn-files'
-      }
-    }
+    runner.node.set['openvpn']['client_configs'] = client_configs
     runner
   end
   
@@ -55,7 +33,7 @@ describe 'openvpn::client' do
     expect(chef_run).to set_service_to_start_on_boot 'openvpn'
   end
 
-  client_configs.each do |config_name|
+  client_configs.keys.each do |config_name|
     context "for config #{config_name}" do
       it 'creates .conf file' do
         expect(chef_run).to create_file_with_content "/etc/openvpn/#{config_name}-foo.conf", ""
