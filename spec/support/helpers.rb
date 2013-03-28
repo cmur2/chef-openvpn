@@ -14,3 +14,7 @@ end
 def config_sub_file(config_name, sub_file)
   "/etc/openvpn/#{config_name}/#{sub_file}"
 end
+
+def client_configs
+  ["test11", "test12", "test13"]
+end
