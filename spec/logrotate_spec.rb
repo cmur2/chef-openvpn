@@ -6,7 +6,7 @@ describe 'openvpn::logrotate' do
   end
 
   let(:chef_run) do
-    chef_runner.converge 'openvpn::logrotate'
+    chef_runner.converge 'logrotate', 'openvpn::logrotate'
   end
 
   it 'creates openvpn logrotate config' do

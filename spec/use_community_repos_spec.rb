@@ -6,7 +6,7 @@ describe 'openvpn::use_community_repos' do
   end
 
   let(:chef_run) do
-    chef_runner.converge 'openvpn::use_community_repos'
+    chef_runner.converge 'apt', 'openvpn::use_community_repos'
   end
 
   {
@@ -17,7 +17,7 @@ describe 'openvpn::use_community_repos' do
       it "creates #{repo} list" do
         chef_runner.node.automatic_attrs['platform'] = 'debian'
         chef_runner.node.automatic_attrs['platform_version'] = version
-        chef_run = chef_runner.converge 'openvpn::use_community_repos'
+        chef_run = chef_runner.converge 'apt', 'openvpn::use_community_repos'
         expect(chef_run).to create_file "/etc/apt/sources.list.d/#{repo}.list"
       end
     end
@@ -34,7 +34,7 @@ describe 'openvpn::use_community_repos' do
       it "creates #{repo} list" do
         chef_runner.node.automatic_attrs['platform'] = 'ubuntu'
         chef_runner.node.automatic_attrs['platform_version'] = version
-        chef_run = chef_runner.converge 'openvpn::use_community_repos'
+        chef_run = chef_runner.converge 'apt', 'openvpn::use_community_repos'
         expect(chef_run).to create_file "/etc/apt/sources.list.d/#{repo}.list"
       end
     end
