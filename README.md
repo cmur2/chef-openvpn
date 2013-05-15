@@ -47,27 +47,29 @@ Configures and starts an OpenVPN server for each configuration (config name => c
 
 There are no defaults for this attributes so missing specific attributes may lead to errors.
 
-Example:
+Example node configuration:
 
-    'openvpn': {
-      'community_repo_flavor': 'snapshots',
-      'configs': {
-        'openvpn6': {
-          'port': 1194,
-          'proto': 'udp',
-          'dev': 'tun',
-          'mode': 'routed',
-          'remote_host': 'vpn.example.org',
-          'subnet': '10.8.0.0',
-          'subnet6': '2001:0db8:0:0::0/64',
-          'netmask': '255.255.0.0',
-          'auth': {
-            'type': 'passwd'
-          },
-          'allow_duplicate_cn': true
-        }
-      }
+```ruby
+'openvpn': {
+  'community_repo_flavor': 'snapshots',
+  'configs': {
+    'openvpn6': {
+      'port': 1194,
+      'proto': 'udp',
+      'dev': 'tun',
+      'mode': 'routed',
+      'remote_host': 'vpn.example.org',
+      'subnet': '10.8.0.0',
+      'subnet6': '2001:0db8:0:0::0/64',
+      'netmask': '255.255.0.0',
+      'auth': {
+        'type': 'passwd'
+      },
+      'allow_duplicate_cn': true
     }
+  }
+}
+```
 
 The certificate files needed for the server should be placed in the cookbook's files directory (or via an overlay site-cookbooks directory that leaves the original cookbook untouched) as follows:
 
@@ -77,6 +79,15 @@ The certificate files needed for the server should be placed in the cookbook's f
 * optional: *config_name*-dh.pem - file containing Diffie Hellman parameters in .pem format (needed only if config["dh_keysize"] is missing)
 
 Each authentication mode requires you to specify your users database in a databag named *config_name*-users (dots transformed to underscores) that contains one item per user (id is the username). A user's password is stored at the 'pass' key.
+
+Example data_bag:
+
+```json
+{
+    "id": "foo",
+    "pass": "secret"
+}
+```
 
 ### users
 
