@@ -30,6 +30,13 @@ configurtions.each do |config_name,config|
     group "openvpn"
     mode 00770
   end
+  
+  # client-config-directory
+  directory "/etc/openvpn/#{config_name}/ccd" do
+    owner "root"
+    group "openvpn"
+    mode 00770
+  end
 
   if config[:dh_keysize]
     unless ::File.exists?("/etc/openvpn/#{config_name}/#{config_name}-dh.pem")
@@ -79,8 +86,8 @@ configurtions.each do |config_name,config|
     # read users from data bag
     users = {}
     users_databag_name = "#{config_name}-users".gsub(/\./, '_')
-    data_bag(users_databag_name).each do |item|
-      user = data_bag_item(users_databag_name, item)
+    data_bag(users_databag_name).each do |item_name|
+      user = data_bag_item(users_databag_name, item_name)
       # use name property if given, else fall back to id
       user_name = user['name'] ? user['name'] : user['id']
       users[user_name] = user['pass']
@@ -92,6 +99,25 @@ configurtions.each do |config_name,config|
       owner "root"
       group "openvpn"
       mode 00770
+    end
+  end
+  
+  # try to find client config information in data bag
+  users_databag_name = "#{config_name}-users".gsub(/\./, '_')
+  data_bag(users_databag_name).each do |item_name|
+    user = data_bag_item(users_databag_name, item_name)
+    # use name property if given, else fall back to id
+    user_name = user['name'] ? user['name'] : user['id']
+    
+    lines = []
+    lines << "ifconfig-push #{user['ifconfig-push']}" if user.key? 'ifconfig-push'
+    
+    file "/etc/openvpn/#{config_name}/ccd/#{user_name}" do
+      content lines.join("\n")
+      owner "root"
+      group "openvpn"
+      mode 00660
+      only_if { not lines.empty? }
     end
   end
 

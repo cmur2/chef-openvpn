@@ -2,3 +2,4 @@
 .kitchen
 spec/support/cookbooks/
 spec/support/tmp/
+tmp/

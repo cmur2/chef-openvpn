@@ -43,6 +43,10 @@ describe 'openvpn::default' do
         expect(chef_run).to create_directory config_dir(config_name)
       end
       
+      it 'creates the client-config-directory (ccd)' do
+        expect(chef_run).to create_directory "/etc/openvpn/#{config_name}/ccd"
+      end
+      
       it 'creates necessary cert/key files' do
         expect(chef_run).to create_file_with_content config_sub_file(config_name, "#{config_name}-dh.pem"), ""
         expect(chef_run).to create_file_with_content config_sub_file(config_name, "#{config_name}-ca.crt"), ""
@@ -52,6 +56,10 @@ describe 'openvpn::default' do
       
       it 'creates authentication script if needed' do
         expect(chef_run).to create_file_with_content config_sub_file(config_name, 'auth.rb'), "" if config_name != "test3"
+      end
+      
+      it 'creates client-config-entries per user' do
+        expect(chef_run).to create_file_with_content config_sub_file(config_name, 'ccd/foo'), ""
       end
     end
   end

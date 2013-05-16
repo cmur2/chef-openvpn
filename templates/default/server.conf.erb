@@ -16,6 +16,8 @@ client-cert-not-required
 username-as-common-name
 <% end -%>
 
+client-config-dir /etc/openvpn/<%= @config_name %>/ccd
+
 ca   /etc/openvpn/<%= @config_name %>/<%= @config_name %>-ca.crt
 cert /etc/openvpn/<%= @config_name %>/<%= @config_name %>.crt
 key  /etc/openvpn/<%= @config_name %>/<%= @config_name %>.key
