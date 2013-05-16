@@ -119,7 +119,8 @@ configurtions.each do |config_name,config|
       owner "root"
       group "openvpn"
       mode 00660
-      only_if { not lines.empty? }
+      notfies :restart, "service[openvpn]"
+      only_if { lines.size > 1 }
     end
   end
 
