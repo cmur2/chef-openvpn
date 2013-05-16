@@ -101,10 +101,10 @@ Example data_bag:
 
 The recipe also generates a `ccd` (client config directory) and populates it with per-client information found in the data_bag mentioned above. Supported data_bag keys:
 
-* ifconfig-push: value is the ifconfig to push (varies between point-to-point and bridged modes!)
-* push: value is either an array of push directives or a single push directive as a string
-* push-reset: if true places a push-reset in the client config
-* iroute: value is either an array of routes to announce or a single route as a string
+* `'ifconfig-push'`: value is the ifconfig to push (varies between point-to-point and bridged modes!)
+* `'push'`: value is either an array of push directives or a single push directive as a string
+* `'push-reset'`: if true places a push-reset in the client config
+* `'iroute'`: value is either an array of routes to announce or a single route as a string
 
 Example data_bag:
 
@@ -137,9 +137,9 @@ The **username** comes from the 'name' property of each item if given, else the 
 
 The is completely seperated from the default (server) recipe and can be used standalone. It configures and starts an OpenVPN client for each configuration (client_config_name => config_hash) found in `node['openvpn']['client_configs']`. A configuration may contain several options such as:
 
-* config['user_name'] - the user_name the server awaits (used for identifying need cert and key files)
-* config['auth']['type'] - 'cert', 'cert_passwd' or 'passwd' - combines client certificates with user passwords if enabled
-* config['file_cookbook'] - may be omitted, if specified will be used as the name of a cookbook where certificates and key file will be loaded from instead of the current cookbook
+* `config['user_name']` - the user_name the server awaits (used for identifying need cert and key files)
+* `config['auth']['type']` - 'cert', 'cert_passwd' or 'passwd' - combines client certificates with user passwords if enabled
+* `config['file_cookbook']` - may be omitted, if specified will be used as the name of a cookbook where certificates and key file will be loaded from instead of the current cookbook
 
 The certificate files should be placed in the cookbook's files directory (or via an overlay site-cookbooks directory that leaves the original cookbook untouched) as follows:
 
@@ -152,7 +152,7 @@ The certificate files should be placed in the cookbook's files directory (or via
 
 When run on supported platforms (Debian, Ubuntu) adds a new APT repository that uses the OpenVPN community repos. Most times you may choose between the two flavors stable (default) or snapshots (later is needed for OpenVPN 2.3 on Debian Squeeze).
 
-* node['openvpn']['community_repo_flavor'] - 'stable' or 'snapshots' (default is 'snapshots')
+* `node['openvpn']['community_repo_flavor']` - 'stable' or 'snapshots' (default is 'snapshots')
 
 ### logrotate
 
