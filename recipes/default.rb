@@ -111,6 +111,8 @@ configurtions.each do |config_name,config|
     
     lines = []
     lines << "ifconfig-push #{user['ifconfig-push']}" if user.key? 'ifconfig-push'
+    # force trailing newline
+    lines << ''
     
     file "/etc/openvpn/#{config_name}/ccd/#{user_name}" do
       content lines.join("\n")
