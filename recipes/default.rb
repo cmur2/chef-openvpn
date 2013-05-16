@@ -110,7 +110,27 @@ configurtions.each do |config_name,config|
     user_name = user['name'] ? user['name'] : user['id']
     
     lines = []
+
     lines << "ifconfig-push #{user['ifconfig-push']}" if user.key? 'ifconfig-push'
+
+    if user.key? 'push'
+      if user['push'].is_a? Array
+        user['push'].each do |directive| lines << "push #{directive}" end
+      else
+        lines << "push #{user['push'].to_s}"
+      end
+    end
+
+    lines << "push-reset" if user['push-reset']
+
+    if user.key? 'iroute'
+      if user['iroute'].is_a? Array
+        user['iroute'].each do |rotue| lines << "iroute #{route}" end
+      else
+        lines << "iroute #{user['iroute'].to_s}"
+      end
+    end
+    
     # force trailing newline
     lines << ''
     
