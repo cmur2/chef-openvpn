@@ -39,6 +39,14 @@ ifconfig-pool-persist /etc/openvpn/<%= @config_name %>/<%= @config_name %>.ipp
 <%= "push \"redirect-gateway def1\"" if @config[:redirect_gateway] %>
 <%= "push \"dhcp-option DNS #{@config[:push_dns]}\"" if @config[:push_dns_server] %>
 
+<% (@config[:push] || []).each do |directive| -%>
+<%= "push \"#{directive}\"" %>
+<% end -%>
+
+<% (@config[:routes] || []).each do |route| -%>
+<%= "route #{route}" %>
+<% end -%>
+
 <%= "duplicate-cn" if @config[:allow_duplicate_cn] %>
 <%= "client-to-client" if @config[:allow_client_to_client] %>
 
