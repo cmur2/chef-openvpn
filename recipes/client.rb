@@ -24,7 +24,7 @@ configurtions.each do |config_name,config|
     source "#{config_name}-ca.crt"
     owner "root"
     group "openvpn"
-    mode 00660
+    mode 00640
     cookbook config[:file_cookbook] if config[:file_cookbook]
   end
 
@@ -33,7 +33,7 @@ configurtions.each do |config_name,config|
       source "#{config_name}-#{user_name}.crt"
       owner "root"
       group "openvpn"
-      mode 00660
+      mode 00640
       cookbook config[:file_cookbook] if config[:file_cookbook]
     end
 
@@ -41,7 +41,7 @@ configurtions.each do |config_name,config|
       source "#{config_name}-#{user_name}.key"
       owner "root"
       group "openvpn"
-      mode 00660
+      mode 00600  # not group or others accesible
       cookbook config[:file_cookbook] if config[:file_cookbook]
     end
   end
@@ -50,7 +50,7 @@ configurtions.each do |config_name,config|
     source "#{config_name}-#{user_name}.conf"
     owner "root"
     group "openvpn"
-    mode 00660
+    mode 00640
     cookbook config[:file_cookbook] if config[:file_cookbook]
   end
 end

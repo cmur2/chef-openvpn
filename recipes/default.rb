@@ -45,7 +45,7 @@ configurtions.each do |config_name,config|
         content OpenSSL::PKey::DH.new(config[:dh_keysize]).to_s
         owner "root"
         group "openvpn"
-        mode 00660
+        mode 00640
       end
     end
   else
@@ -53,7 +53,7 @@ configurtions.each do |config_name,config|
       source "#{config_name}-dh.pem"
       owner "root"
       group "openvpn"
-      mode 00660
+      mode 00640
       cookbook config[:file_cookbook] if config[:file_cookbook]
     end
   end
@@ -62,7 +62,7 @@ configurtions.each do |config_name,config|
     source "#{config_name}-ca.crt"
     owner "root"
     group "openvpn"
-    mode 00660
+    mode 00640
     cookbook config[:file_cookbook] if config[:file_cookbook]
   end
 
@@ -70,7 +70,7 @@ configurtions.each do |config_name,config|
     source "#{config_name}.crt"
     owner "root"
     group "openvpn"
-    mode 00660
+    mode 00640
     cookbook config[:file_cookbook] if config[:file_cookbook]
   end
 
@@ -98,7 +98,7 @@ configurtions.each do |config_name,config|
       variables :users => users
       owner "root"
       group "openvpn"
-      mode 00770
+      mode 00750
     end
   end
   
@@ -138,7 +138,7 @@ configurtions.each do |config_name,config|
       content lines.join("\n")
       owner "root"
       group "openvpn"
-      mode 00660
+      mode 00640
       notifies :restart, "service[openvpn]"
       only_if { lines.size > 1 }
     end
@@ -149,7 +149,7 @@ configurtions.each do |config_name,config|
     variables :config_name => config_name, :config => config
     owner "root"
     group "openvpn"
-    mode 00660
+    mode 00640
     notifies :restart, "service[openvpn]"
   end
 end
