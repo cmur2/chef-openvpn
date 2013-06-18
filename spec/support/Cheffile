@@ -5,4 +5,5 @@ site 'http://community.opscode.com/api/v1'
 cookbook 'logrotate'
 
 cookbook 'apt',
-  :git => 'https://github.com/opscode-cookbooks/apt'
+  :git => 'https://github.com/opscode-cookbooks/apt',
+  :ref => '1.10.0'
