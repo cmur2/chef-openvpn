@@ -51,6 +51,7 @@ configurtions.each do |config_name,config|
     owner "root"
     group "openvpn"
     mode 00640
+    notifies :restart, "service[openvpn]"
     cookbook config[:file_cookbook] if config[:file_cookbook]
   end
 end
