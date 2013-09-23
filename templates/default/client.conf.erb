@@ -35,7 +35,7 @@ persist-key
 persist-tun
 
 tmp-dir /tmp
-log-append /var/log/openvpn/vpn.mycrobase.de.log
+log-append /var/log/openvpn/<%= @config_name %>.log
 ;mute-replay-warnings
 verb 3
 mute 20
