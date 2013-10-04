@@ -11,7 +11,8 @@ describe 'openvpn::use_community_repos' do
 
   {
     '5.0.0' => 'openvpn-lenny',
-    '6.0.0' => 'openvpn-squeeze'
+    '6.0.0' => 'openvpn-squeeze',
+    '7.0.0' => 'openvpn-wheezy'
   }.each do |version, repo|
     context "on Debian #{version}" do
       it "creates #{repo} list" do
@@ -28,7 +29,9 @@ describe 'openvpn::use_community_repos' do
     '10.10' => 'openvpn-lucid',
     '11.04' => 'openvpn-lucid',
     '11.10' => 'openvpn-lucid',
-    '12.04' => 'openvpn-precise'
+    '12.04' => 'openvpn-precise',
+    '12.10' => 'openvpn-quantal',
+    '13.04' => 'openvpn-raring'
   }.each do |version, repo|
     context "on Ubuntu #{version}" do
       it "creates #{repo} list" do
