@@ -37,7 +37,7 @@ ifconfig-pool-persist /etc/openvpn/<%= @config_name %>/<%= @config_name %>.ipp
 <% end -%>
 
 <%= "push \"redirect-gateway def1\"" if @config[:redirect_gateway] %>
-<%= "push \"dhcp-option DNS #{@config[:push_dns]}\"" if @config[:push_dns_server] %>
+<%= "push \"dhcp-option DNS #{@config[:push_dns_server]}\"" if @config[:push_dns_server] %>
 
 <% (@config[:push] || []).each do |directive| -%>
 <%= "push \"#{directive}\"" %>
