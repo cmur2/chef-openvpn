@@ -50,9 +50,13 @@ ifconfig-pool-persist /etc/openvpn/<%= @config_name %>/<%= @config_name %>.ipp
 <%= "duplicate-cn" if @config[:allow_duplicate_cn] %>
 <%= "client-to-client" if @config[:allow_client_to_client] %>
 
-keepalive 10 120
+<%= "keepalive #{@config[:keepalive_interval]} #{@config[:keepalive_timeout]}" if @config[:keepalive_interval] and @config[:keepalive_timeout] %>
 
-comp-lzo
+<%= "comp-lzo" if @config[:comp_lzo] %>
+
+<%= "cipher #{@config[:cipher_algo]}" if @config[:cipher_algo] %>
+<%= "keysize #{@config[:keysize]}" if @config[:keysize] %>
+<%= "auth #{@config[:auth_algo]}" if @config[:auth_algo] %>
 
 user openvpn
 group openvpn

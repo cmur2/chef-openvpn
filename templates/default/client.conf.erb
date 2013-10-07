@@ -26,7 +26,11 @@ ns-cert-type server
 resolv-retry infinite
 nobind
 
-comp-lzo
+<%= "comp-lzo" if @config[:comp_lzo] %>
+
+<%= "cipher #{@config[:cipher_algo]}" if @config[:cipher_algo] %>
+<%= "keysize #{@config[:keysize]}" if @config[:keysize] %>
+<%= "auth #{@config[:auth_algo]}" if @config[:auth_algo] %>
 
 user openvpn
 group openvpn
