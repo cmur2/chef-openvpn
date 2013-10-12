@@ -116,7 +116,7 @@ Example data_bag:
 ```json
 {
     "id": "foo",
-    "ifconfig-push": "10.8.06 10.8.0.5",
+    "ifconfig-push": "10.8.0.6 10.8.0.5",
     "iroute": "192.168.40.128 255.255.255.248",
     "push": [
       "redirect-gateway"
