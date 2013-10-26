@@ -12,9 +12,9 @@ when "debian"
     end
   when 6
     apt_repository "openvpn-squeeze" do
-      uri "http://swupdate.openvpn.net/repos/apt/squeeze-#{flavor}"
+      uri "http://repos.openvpn.net/repos/apt/squeeze-#{flavor}"
       components ["squeeze", "main"]
-      key "http://swupdate.openvpn.net/repos/repo-public.gpg"
+      key "http://repos.openvpn.net/repos/repo-public.gpg"
     end
   when 7
     apt_repository "openvpn-wheezy" do
