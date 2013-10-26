@@ -27,9 +27,9 @@ when "ubuntu"
   case node[:platform_version]
   when "10.04", "10.10", "11.04", "11.10"
     apt_repository "openvpn-lucid" do
-      uri "http://swupdate.openvpn.net/repos/apt/lucid-#{flavor}"
+      uri "http://repos.openvpn.net/repos/apt/lucid-#{flavor}"
       components ["lucid", "main"]
-      key "http://swupdate.openvpn.net/repos/repo-public.gpg"
+      key "http://repos.openvpn.net/repos/repo-public.gpg"
     end
   when "12.04"
     apt_repository "openvpn-precise" do
