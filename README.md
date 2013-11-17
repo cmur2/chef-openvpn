@@ -159,7 +159,7 @@ The certificate files should be placed in the cookbook's files directory (or via
 
 ### use_community_repos
 
-When run on supported platforms (Debian, Ubuntu) adds a new APT repository that uses the OpenVPN community repos. Most times you may choose between the two flavors stable (default) or snapshots (later is needed for OpenVPN 2.3 on Debian Squeeze).
+When run on supported platforms (Debian, Ubuntu) adds a new APT repository that uses the OpenVPN community repos. For Debian Lenny and Ubuntu Lucid (2. gen, relying on the old [repos.openvpn.net](https://community.openvpn.net/openvpn/wiki/OpenvpnSoftwareRepos#Notesonoldaptyumrepositories)) you may choose between the two flavors stable (default) or snapshots, for newer OSes there is only one repository using the new, 3. gen [swupdate.openvpn.net](https://community.openvpn.net/openvpn/wiki/OpenvpnSoftwareRepos).
 
 * `node['openvpn']['community_repo_flavor']` - 'stable' or 'snapshots' (default is 'snapshots')
 

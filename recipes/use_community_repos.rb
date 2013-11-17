@@ -12,42 +12,42 @@ when "debian"
     end
   when 6
     apt_repository "openvpn-squeeze" do
-      uri "http://repos.openvpn.net/repos/apt/squeeze-#{flavor}"
+      uri "http://swupdate.openvpn.net/apt"
       components ["squeeze", "main"]
-      key "http://repos.openvpn.net/repos/repo-public.gpg"
+      key "https://swupdate.openvpn.net/repos/repo-public.gpg"
     end
   when 7
     apt_repository "openvpn-wheezy" do
-      uri "http://swupdate.openvpn.net/repos/apt/wheezy-#{flavor}"
+      uri "http://swupdate.openvpn.net/apt"
       components ["wheezy", "main"]
-      key "http://swupdate.openvpn.net/repos/repo-public.gpg"
+      key "https://swupdate.openvpn.net/repos/repo-public.gpg"
     end
   end
 when "ubuntu"
   case node[:platform_version]
   when "10.04", "10.10", "11.04", "11.10"
     apt_repository "openvpn-lucid" do
-      uri "http://repos.openvpn.net/repos/apt/lucid-#{flavor}"
+      uri "http://swupdate.openvpn.net/apt"
       components ["lucid", "main"]
-      key "http://repos.openvpn.net/repos/repo-public.gpg"
+      key "https://swupdate.openvpn.net/repos/repo-public.gpg"
     end
   when "12.04"
     apt_repository "openvpn-precise" do
-      uri "http://swupdate.openvpn.net/repos/apt/precise-#{flavor}"
+      uri "http://swupdate.openvpn.net/apt"
       components ["precise", "main"]
-      key "http://swupdate.openvpn.net/repos/repo-public.gpg"
-    end
-  when "12.10"
-    apt_repository "openvpn-quantal" do
-      uri "http://swupdate.openvpn.net/repos/apt/quantal-#{flavor}"
-      components ["quantal", "main"]
-      key "http://swupdate.openvpn.net/repos/repo-public.gpg"
+      key "https://swupdate.openvpn.net/repos/repo-public.gpg"
     end
   when "13.04"
     apt_repository "openvpn-raring" do
-      uri "http://swupdate.openvpn.net/repos/apt/raring-#{flavor}"
+      uri "http://swupdate.openvpn.net/apt"
       components ["raring", "main"]
-      key "http://swupdate.openvpn.net/repos/repo-public.gpg"
+      key "https://swupdate.openvpn.net/repos/repo-public.gpg"
+    end
+  when "13.10"
+    apt_repository "openvpn-saucy" do
+      uri "http://swupdate.openvpn.net/apt"
+      components ["saucy", "main"]
+      key "https://swupdate.openvpn.net/repos/repo-public.gpg"
     end
   end
 end

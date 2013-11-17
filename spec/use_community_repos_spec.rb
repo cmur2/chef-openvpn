@@ -30,8 +30,8 @@ describe 'openvpn::use_community_repos' do
     '11.04' => 'openvpn-lucid',
     '11.10' => 'openvpn-lucid',
     '12.04' => 'openvpn-precise',
-    '12.10' => 'openvpn-quantal',
-    '13.04' => 'openvpn-raring'
+    '13.04' => 'openvpn-raring',
+    '13.10' => 'openvpn-saucy'
   }.each do |version, repo|
     context "on Ubuntu #{version}" do
       it "creates #{repo} list" do
