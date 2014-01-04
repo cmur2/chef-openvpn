@@ -48,6 +48,7 @@ Configures and starts an OpenVPN server for each configuration (config_name => c
 * `config['comp_lzo']` - may be omitted, if specified and true enables compression (must match client setting)
 * `config['keepalive_interval']` - may be omitted, if specified together with `config['keepalive_timeout']` enables the keepalive setting with specified interval
 * `config['keepalive_timeout']` - may be omitted, if specified together with `config['keepalive_interval']` enables the keepalive setting with specified timeout
+* `config['tls_cipher_algos']` - may be omitted, if specified sets the list of allowable TLS ciphers (must match client setting)
 * `config['cipher_algo']` - may be omitted, if specified sets the cipher, e.g. AES-256-CBC (must match client setting)
 * `config['keysize']` - may be omitted, if specified sets the keysize for variable ciphers (must match client setting)
 * `config['auth_algo']` - may be omitted, if specified sets the auth, e.g. SHA256 (must match client setting)
@@ -145,10 +146,6 @@ The is completely seperated from the default (server) recipe and can be used sta
 * `config['user_name']` - the user_name the server awaits (used for identifying need cert and key files)
 * `config['auth']['type']` - 'cert', 'cert_passwd' or 'passwd' - combines client certificates with user passwords if enabled
 * `config['file_cookbook']` - may be omitted, if specified will be used as the name of a cookbook where certificates and key file will be loaded from instead of the current cookbook
-* `config['comp_lzo']` - may be omitted, if specified and true enables compression (must match server setting)
-* `config['cipher_algo']` - may be omitted, if specified sets the cipher, e.g. AES-256-CBC (must match server setting)
-* `config['keysize']` - may be omitted, if specified sets the keysize for variable ciphers (must match server setting)
-* `config['auth_algo']` - may be omitted, if specified sets the auth, e.g. SHA256 (must match server setting)
 
 The certificate files should be placed in the cookbook's files directory (or via an overlay site-cookbooks directory that leaves the original cookbook untouched) as follows:
 

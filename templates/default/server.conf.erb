@@ -54,6 +54,7 @@ ifconfig-pool-persist /etc/openvpn/<%= @config_name %>/<%= @config_name %>.ipp
 
 <%= "comp-lzo" if @config[:comp_lzo] %>
 
+<%= "tls-cipher #{@config[:tls_cipher_algos]}" if @config[:tls_cipher_algos] %>
 <%= "cipher #{@config[:cipher_algo]}" if @config[:cipher_algo] %>
 <%= "keysize #{@config[:keysize]}" if @config[:keysize] %>
 <%= "auth #{@config[:auth_algo]}" if @config[:auth_algo] %>
