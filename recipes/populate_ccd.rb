@@ -1,5 +1,6 @@
 configurtions = node[:openvpn][:configs]
 configurtions.each do |config_name,config|
+  # don't manage ccd directory, since we are using client connect script
   next if config[:use_client_connect]
 
   # try to find client config information in data bag
