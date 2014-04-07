@@ -1,63 +1,7 @@
 
-package "openvpn"
-
-# create openvpn user and group
-user "openvpn"
-group "openvpn" do
-  members ["openvpn"]
-end
-
-directory "/var/log/openvpn" do
-  owner "root"
-  group "root"
-  mode 00755
-end
-
-# setup each client_config
-configurtions = node[:openvpn][:client_configs]
-configurtions.each do |config_name,config|
-
-  # user_name required for given vpn server/config
-  user_name = config[:user_name]
-
-  unless config[:autopki] && config[:autopki][:enabled]
-    cookbook_file "/etc/openvpn/#{config_name}-#{user_name}-ca.crt" do
-      source "#{config_name}-ca.crt"
-      owner "root"
-      group "openvpn"
-      mode 00640
-      cookbook config[:file_cookbook] if config[:file_cookbook]
-    end
-
-    if (config[:auth][:type] == "cert") or (config[:auth][:type] == "cert_passwd")
-      cookbook_file "/etc/openvpn/#{config_name}-#{user_name}.crt" do
-        source "#{config_name}-#{user_name}.crt"
-        owner "root"
-        group "openvpn"
-        mode 00640
-        cookbook config[:file_cookbook] if config[:file_cookbook]
-      end
-
-      cookbook_file "/etc/openvpn/#{config_name}-#{user_name}.key" do
-        source "#{config_name}-#{user_name}.key"
-        owner "root"
-        group "openvpn"
-        mode 00600  # not group or others accesible
-        cookbook config[:file_cookbook] if config[:file_cookbook]
-      end
-    end
-  end
-
-  cookbook_file "/etc/openvpn/#{config_name}-#{user_name}.conf" do
-    source "#{config_name}-#{user_name}.conf"
-    owner "root"
-    group "openvpn"
-    mode 00640
-    notifies :restart, "service[openvpn]"
-    cookbook config[:file_cookbook] if config[:file_cookbook]
-  end
-
-end
+include_recipe "openvpn::common"
+include_recipe "openvpn::config_client"
+include_recipe "openvpn::autopki"
 
 service "openvpn" do
   action [:enable, :start]

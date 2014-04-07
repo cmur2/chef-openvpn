@@ -35,8 +35,7 @@ module OpenvpnHelpers
 
   def using_scripts?
     config = self.conf
-    config[:auth][:type] == "cert_passwd" ||
-      config[:auth][:type] == "passwd" ||
-      config[:client_connect]
+    use = config[:auth][:type] == "cert_passwd" || config[:auth][:type] == "passwd"
+    use = use || config[:use_client_connect]
   end
 end

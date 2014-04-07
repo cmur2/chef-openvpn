@@ -1,24 +1,8 @@
+class << self; include OpenvpnHelpers; end
 
-# setup each config
-configurtions = node[:openvpn][:configs]
-configurtions.each do |config_name,config|
-  # setting ccd to enabled by default
-  if config[:mode] == "routed" and config[:subnet6] and not config[:subnet]
-    raise "OpenVPN configuration '#{config_name}': You need to specify an IPv4 subnet too when using an IPv6 subnet!"
-  end
-
-  directory "/etc/openvpn/#{config_name}" do
-    owner "root"
-    group "openvpn"
-    mode 00770
-  end
-  
-  # client-config-directory
-  directory "/etc/openvpn/#{config_name}/ccd" do
-    owner "root"
-    group "openvpn"
-    mode 00770
-  end
+openvpn_process :configs do
+  config_name = self.conf_name
+  config = self.conf
 
   if config[:dh_keysize]
     unless ::File.exists?("/etc/openvpn/#{config_name}/#{config_name}-dh.pem")
@@ -94,5 +78,19 @@ configurtions.each do |config_name,config|
     group "openvpn"
     mode 00640
     notifies :restart, "service[openvpn]"
+  end
+
+  # use client_connect script
+  if config[:use_client_connect]
+    script_erb = config[:client_connect_script] || "client-connect.sh.erb"
+
+    template "/etc/openvpn/#{config_name}/client-connect.sh" do
+      source script_erb
+      owner 'root'
+      group 'root'
+      mode  00755
+      variables(:config_name => config_name, :config => config)
+      cookbook config[:file_cookbook] if config[:file_cookbook]
+    end
   end
 end
