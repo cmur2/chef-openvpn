@@ -17,8 +17,8 @@ directory "/var/log/openvpn" do
   mode 00755
 end
 
-include_recipe "openvpn::autopki"
 include_recipe "openvpn::config"
+include_recipe "openvpn::autopki"
 include_recipe "openvpn::populate_ccd"
 
 service "openvpn" do
