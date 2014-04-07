@@ -1,5 +1,6 @@
 configurtions = node[:openvpn][:configs]
 configurtions.each do |config_name,config|
+  next if config[:use_client_connect]
 
   # try to find client config information in data bag
   users_databag_name = "#{config_name}-users".gsub(/\./, '_')
