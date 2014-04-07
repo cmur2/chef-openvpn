@@ -167,6 +167,7 @@ AutoPKI  mode allows automatic generation of certificates for OpenVPN instances.
  - `autopki['city']` - certificate city field. Default: `"London"`
  - `autopki['org']` - certificate org field. Default: `"OhaiChefs"`
  - `autopki['email']` - certificate email field. Default: `"me@example.com"`
+ - `config['user_name']` - you must specify this value, it sets the remote name and is used as the name for CA certificate and key
  - `config['file_cookbook']` -  may be omitted, if specified will be used as the name of a cookbook where certificates and key file will be loaded from instead of the current cookbook
 
 
