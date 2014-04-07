@@ -37,7 +37,7 @@ openvpn_process :client_configs do
   end
 
   cookbook_file "/etc/openvpn/#{config_name}-#{user_name}.conf" do
-    source "#{config_name}-#{user_name}.conf"
+    source "client.conf.erb"
     owner "root"
     group "openvpn"
     mode 00640
