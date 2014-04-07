@@ -3,3 +3,5 @@
 spec/support/cookbooks/
 spec/support/tmp/
 tmp/
+.kitchen/
+.kitchen.local.yml

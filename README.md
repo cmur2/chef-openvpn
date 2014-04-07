@@ -154,6 +154,22 @@ The certificate files should be placed in the cookbook's files directory (or via
 * *config_name*-*user_name*.crt - client's signed certificate in .pem format
 * *config_name*-*user_name*.key - client's private key in .pem format
 
+
+### autopki mode
+
+AutoPKI  mode allows automatic generation of certificates for OpenVPN instances. For this to work you must include *CA* certificate and private key into you wrapper cookbook. A configuration may contain several options such as (mind that `autopki` is the same with `config['autopki']`):
+ - `autopki['enabled']` - may be ommited, to enable autopki set the value to `true`. Default: `false`
+ - `autopki['ca_expire']` - CA certificate expiration in days. Default: `3650`
+ - `autopki['expire']` - client/server certificate expiration in days. Default: `3650`
+ - `autopki['size']` - certificate size in bits. Default: `1024`
+ - `autopki['country']` - certificate country field. Default: `"GB"`
+ - `autopki['province']` - certificate province field. Default: `""`
+ - `autopki['city']` - certificate city field. Default: `"London"`
+ - `autopki['org']` - certificate org field. Default: `"OhaiChefs"`
+ - `autopki['email']` - certificate email field. Default: `"me@example.com"`
+ - `config['file_cookbook']` -  may be omitted, if specified will be used as the name of a cookbook where certificates and key file will be loaded from instead of the current cookbook
+
+
 ### use_community_repos
 
 When run on supported platforms (Debian, Ubuntu) adds a new APT repository that uses the OpenVPN community repos. For Debian Lenny and Ubuntu Lucid (2. gen, relying on the old [repos.openvpn.net](https://community.openvpn.net/openvpn/wiki/OpenvpnSoftwareRepos#Notesonoldaptyumrepositories)) you may choose between the two flavors stable (default) or snapshots, for newer OSes there is only one repository using the new, 3. gen [swupdate.openvpn.net](https://community.openvpn.net/openvpn/wiki/OpenvpnSoftwareRepos).

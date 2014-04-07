@@ -1,0 +1,10 @@
+default['openvpn']['autopki']['basedir'] = "/etc/openvpn/autopki"
+pki = default['openvpn']['autopki']['default']
+pki[:ca_expire] = 3650
+pki[:expire]    = 3650
+pki[:size]      = 1024
+pki[:country]   = 'GB'
+pki[:province]  = ''
+pki[:city]      = 'London'
+pki[:org]       = 'OhaiChefs'
+pki[:email]     = 'me@example.com'

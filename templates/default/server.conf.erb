@@ -26,34 +26,25 @@ dh   /etc/openvpn/<%= @config_name %>/<%= @config_name %>-dh.pem
 <% if @config[:auth][:type] != "passwd" -%>
 ifconfig-pool-persist /etc/openvpn/<%= @config_name %>/<%= @config_name %>.ipp
 <% end -%>
-
 <% if @config[:mode] == "routed" -%>
 <%= "server #{@config[:subnet]} #{@config[:netmask]}" if @config[:subnet] %>
 <%= "server-ipv6 #{@config[:subnet6]}" if @config[:subnet6] %>
 <% end -%>
-
 <% if @config[:mode] == "bridged" -%>
 <%= "server-bridge #{@config[:server_ip]} #{@config[:netmask]} #{@config[:dhcp_start]} #{@config[:dhcp_end]}" %>
 <% end -%>
-
 <%= "push \"redirect-gateway def1\"" if @config[:redirect_gateway] %>
 <%= "push \"dhcp-option DNS #{@config[:push_dns_server]}\"" if @config[:push_dns_server] %>
-
 <% (@config[:push] || []).each do |directive| -%>
 <%= "push \"#{directive}\"" %>
 <% end -%>
-
 <% (@config[:routes] || []).each do |route| -%>
 <%= "route #{route}" %>
 <% end -%>
-
 <%= "duplicate-cn" if @config[:allow_duplicate_cn] %>
 <%= "client-to-client" if @config[:allow_client_to_client] %>
-
 <%= "keepalive #{@config[:keepalive_interval]} #{@config[:keepalive_timeout]}" if @config[:keepalive_interval] and @config[:keepalive_timeout] %>
-
 <%= "comp-lzo" if @config[:comp_lzo] %>
-
 <%= "tls-cipher #{@config[:tls_cipher_algos]}" if @config[:tls_cipher_algos] %>
 <%= "cipher #{@config[:cipher_algo]}" if @config[:cipher_algo] %>
 <%= "keysize #{@config[:keysize]}" if @config[:keysize] %>

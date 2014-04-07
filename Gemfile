@@ -11,3 +11,4 @@ gem 'guard-rspec', require: false
 gem 'rb-readline', require: false
 
 #gem 'test-kitchen', :platform => :ruby_19
+gem 'kitchen-vagrant'
