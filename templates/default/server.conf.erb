@@ -39,7 +39,7 @@ ifconfig-pool-persist /etc/openvpn/<%= @config_name %>/<%= @config_name %>.ipp
 <% end -%>
 <% if @config[:mode] == "bridged" -%>
 <%= "server-bridge #{@config[:server_ip]} #{@config[:netmask]} #{@config[:dhcp_start]} #{@config[:dhcp_end]}" %>
-  <% end -%>
+<% end -%>
 
 <% unless @config[:use_client_connect] -%>
 <%= "push \"redirect-gateway #{@config[:redirect_gateway]}\"\n" if @config[:redirect_gateway] -%>
