@@ -90,7 +90,7 @@ openvpn_process :configs do
       group 'root'
       mode  00755
       variables(:config_name => config_name, :config => config)
-      cookbook config[:file_cookbook] if config[:file_cookbook]
+      cookbook config[:script_cookbook] if config[:script_cookbook]
     end
   end
 end
