@@ -51,7 +51,7 @@ openvpn_process :configs do
     end
   end
 
-  if (config[:auth][:type] == "cert_passwd") or (config[:auth][:type] == "passwd")
+  if config[:auth][:type] == "cert_passwd" || config[:auth][:type] == "passwd"
     # read users from data bag
     users = {}
     users_databag_name = "#{config_name}-users".gsub(/\./, '_')

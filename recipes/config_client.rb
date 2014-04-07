@@ -17,7 +17,7 @@ openvpn_process :client_configs do
       cookbook config[:file_cookbook] if config[:file_cookbook]
     end
 
-    if (config[:auth][:type] == "cert") or (config[:auth][:type] == "cert_passwd")
+    if config[:auth][:type] == "cert" || config[:auth][:type] == "cert_passwd"
       cookbook_file "/etc/openvpn/#{config_name}-#{user_name}.crt" do
         source "#{config_name}-#{user_name}.crt"
         owner "root"
@@ -36,12 +36,12 @@ openvpn_process :client_configs do
     end
   end
 
-  cookbook_file "/etc/openvpn/#{config_name}-#{user_name}.conf" do
+  template "/etc/openvpn/#{config_name}-#{user_name}.conf" do
     source "client.conf.erb"
     owner "root"
     group "openvpn"
     mode 00640
     notifies :restart, "service[openvpn]"
-    cookbook config[:file_cookbook] if config[:file_cookbook]
+    variables(:config_name => config_name, :config => config, :user_name => config[:user_name])
   end
 end

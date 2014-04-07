@@ -9,16 +9,15 @@ proto <%= @config[:proto] %>
 dev <%= @config[:dev] %>
 ;dev-node OpenVPN-TAP
 
-<% if (@config[:auth][:type] == "cert_passwd") or (@config[:auth][:type] == "passwd") -%>
+<% if @config[:auth][:type] == "cert_passwd" || @config[:auth][:type] == "passwd" -%>
 auth-user-pass
 ;auth-nocache
 <% end -%>
 
-<% if (@config[:auth][:type] == "cert") or (@config[:auth][:type] == "cert_passwd") -%>
+<% if @config[:auth][:type].to_s.start_with? "cert" -%>
 cert <%= @config_name %>-<%= @user_name %>.crt
 key  <%= @config_name %>-<%= @user_name %>.key
 <% end -%>
-
 ca <%= @config_name %>-<%= @user_name %>-ca.crt
 
 ns-cert-type server

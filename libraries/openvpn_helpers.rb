@@ -1,5 +1,5 @@
 module OpenvpnHelpers
-  attr_reader :conf, :conf_name, :conf_type
+  attr_reader :conf, :conf_name, :conf_type, :conf_key
 
   def openvpn_process(*args, &block)
     return if block.nil?
@@ -12,8 +12,8 @@ module OpenvpnHelpers
 
   def set_default_script_security
     if using_scripts?
-      ss = node['openvpn']['configs'][self.conf_name][:script_security]
-      node.default['openvpn']['configs'][self.conf_name][:script_security] = 2 unless ss
+      ss = node['openvpn'][self.conf_key][self.conf_name][:script_security]
+      node.default['openvpn'][self.conf_key][self.conf_name][:script_security] = 2 unless ss
     end
   end
 
@@ -22,6 +22,7 @@ module OpenvpnHelpers
   # Process config key with a few attr readers assigned
   def _process(key, &block)
     @conf_type = (key == :configs ? :server : :client)
+    @conf_key  = key
     node[:openvpn][key].each do |n,c|
       @conf_name = n
       @conf = c
