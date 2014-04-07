@@ -94,7 +94,7 @@ openvpn_process :configs, :client_configs do
 
   # Link to the given configuration paths
   # ----
-  
+
   %w(.crt .key).each do |ext|
     link "#{base_path}#{ext}" do
       to "#{pki_base}/#{config_name}#{ext}"

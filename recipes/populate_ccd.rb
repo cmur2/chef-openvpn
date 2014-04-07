@@ -16,7 +16,7 @@ configurtions.each do |config_name,config|
     user = data_bag_item(users_databag_name, item_name)
     # use name property if given, else fall back to id
     user_name = user['name'] ? user['name'] : user['id']
-    
+
     lines = []
 
     lines << "ifconfig-push #{user['ifconfig-push']}" if user.key? 'ifconfig-push'
@@ -38,10 +38,10 @@ configurtions.each do |config_name,config|
         lines << "iroute #{user['iroute'].to_s}"
       end
     end
-    
+
     # force trailing newline
     lines << ''
-    
+
     file "/etc/openvpn/#{config_name}/ccd/#{user_name}" do
       content lines.join("\n")
       owner "root"
