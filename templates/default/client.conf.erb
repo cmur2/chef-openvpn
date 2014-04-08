@@ -38,8 +38,8 @@ nobind
 <%= "keysize #{@config[:keysize]}\n" if @config[:keysize] -%>
 <%= "auth #{@config[:auth_algo]}\n" if @config[:auth_algo] -%>
 
-user openvpn
-group openvpn
+user <%= @config[:user] || "openvpn" %>
+group <%= @config[:user] || "openvpn" %>
 
 persist-key
 persist-tun
