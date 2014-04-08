@@ -14,6 +14,13 @@ auth-user-pass
 ;auth-nocache
 <% end -%>
 
+<% if @config[:script_security] -%>
+script-security <%= @config[:script_security] %>
+<% end -%>
+<% if @config[:use_route_up] -%>
+route-up  /etc/openvpn/<%= @config_name %>/route-up.sh
+<% end -%>
+
 <% if @config[:auth][:type].to_s.start_with? "cert" -%>
 cert <%= @config_name %>-<%= @user_name %>.crt
 key  <%= @config_name %>-<%= @user_name %>.key

@@ -40,7 +40,7 @@ openvpn_process :client_configs do
   if config[:use_route_up]
     script_erb = config[:route_up_script] || "route-up.sh.erb"
 
-    template "/etc/openvpn/#{config_name}/client-connect.sh" do
+    template "/etc/openvpn/#{config_name}/route-up.sh" do
       source script_erb
       owner 'root'
       group 'root'
