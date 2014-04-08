@@ -53,7 +53,7 @@ openvpn_process :configs, :client_configs do
     end
   end
 
-  # Upload CA files
+  # Upload or generate CA files
   # ----
   if self.conf_type == :server
     base_path = "/etc/openvpn/#{config_name}/#{config_name}"
@@ -64,20 +64,50 @@ openvpn_process :configs, :client_configs do
     ca_base = config[:user_name]
   end
 
-  cookbook_file "#{pki_base}/ca.key"  do
-    source "#{ca_base}-ca.key"
-    owner 'root'
-    group 'root'
-    mode  00600
-    cookbook config[:file_cookbook] if config[:file_cookbook]
-  end
+  begin
+    %w(ca.crt ca.key).each do |fn|
+      ca_file = "#{ca_base}-#{fn}"
+      run_context.cookbook_collection[config[:file_cookbook] || cookbook_name].
+      preferred_filename_on_disk_location(node, :files, ca_file)
+    end
 
-  cookbook_file "#{pki_base}/ca.crt" do
-    source "#{ca_base}-ca.crt"
-    owner 'root'
-    group 'root'
-    mode  00644
-    cookbook config[:file_cookbook] if config[:file_cookbook]
+    cookbook_file "#{pki_base}/ca.key"  do
+      source "#{ca_base}-ca.key"
+      owner 'root'
+      group 'root'
+      mode  00600
+      cookbook config[:file_cookbook] if config[:file_cookbook]
+    end
+
+    cookbook_file "#{pki_base}/ca.crt" do
+      source "#{ca_base}-ca.crt"
+      owner 'root'
+      group 'root'
+      mode  00644
+      cookbook config[:file_cookbook] if config[:file_cookbook]
+    end
+
+  # handle automatic generation of CA key and cert
+  rescue Chef::Exceptions::FileNotFound => e
+    if self.conf_type == :client
+      Chef::Log.error "OpenVPN CA key pair can be generated only on server"
+      Chef::Log.error "Please include your CA key pair into a client wrapper cookbook"
+      raise e
+    end
+
+    command = easy_rsa("--initca")
+    execute "pkitool --initca" do
+      cwd     pki_base
+      command command
+      not_if  "test -f #{pki_base}/ca.crt"
+    end
+
+    file "#{pki_base}/ca.key"  do
+      owner 'root' and group 'root' and mode  00600
+    end
+    file "#{pki_base}/ca.crt" do
+      owner 'root' and group 'root' and mode  00644
+    end
   end
 
   # Generate key-pair for client or server using pkitool
