@@ -1,14 +1,14 @@
 configurtions = node[:openvpn][:configs]
 configurtions.each do |config_name,config|
-  # don't manage ccd directory, since we are using client connect script
-  next if config[:use_client_connect]
-
   # client-config-directory
   directory "/etc/openvpn/#{config_name}/ccd" do
     owner "root"
     group "openvpn"
     mode 00770
   end
+
+  # don't manage ccd directory, since we are using client connect script
+  next if config[:use_client_connect]
 
   # try to find client config information in data bag
   users_databag_name = "#{config_name}-users".gsub(/\./, '_')

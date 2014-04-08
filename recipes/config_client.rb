@@ -36,6 +36,21 @@ openvpn_process :client_configs do
     end
   end
 
+  # Use route-up script
+  if config[:use_route_up]
+    script_erb = config[:route_up_script] || "route-up.sh.erb"
+
+    template "/etc/openvpn/#{config_name}/client-connect.sh" do
+      source script_erb
+      owner 'root'
+      group 'root'
+      mode  00755
+      variables(:config_name => config_name, :config => config)
+      cookbook config[:route_up_cookbook] if config[:route_up_cookbook]
+      notifies :reload, "service[openvpn]"
+    end
+  end
+
   template "/etc/openvpn/#{config_name}-#{user_name}.conf" do
     source "client.conf.erb"
     owner "root"

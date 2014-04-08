@@ -16,8 +16,3 @@ echo "push \"dhcp-option DNS #{@config[:push_dns_server]}\"" >> $1
 <% Array(@config[:push]).each do |v| -%>
 echo "push \"<%= v %>\"" >> $1
 <% end -%>
-
-# Dynamicly populate routes if any specified
-<% Array(@config[:routes]).each do |v| -%>
-echo "route <%= v %>" >> $1
-<% end -%>
