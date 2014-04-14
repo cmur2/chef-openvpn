@@ -23,7 +23,7 @@ configurtions.each do |config_name,config|
       cookbook config[:file_cookbook] if config[:file_cookbook]
     end
 
-    if config[:auth][:type] == "cert" || (config[:auth][:type] == "cert_passwd"
+    if config[:auth][:type] == "cert" || config[:auth][:type] == "cert_passwd"
       cookbook_file "/etc/openvpn/#{config_name}/users/#{config_name}-#{user_name}.crt" do
         source "#{config_name}-#{user_name}.crt"
         owner "root"
