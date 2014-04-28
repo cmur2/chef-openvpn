@@ -170,6 +170,26 @@ AutoPKI  mode allows automatic generation of certificates for OpenVPN instances.
  - `config['user_name']` - you must specify this value, it sets the remote name and is used as the name for CA certificate and key
  - `config['file_cookbook']` -  may be omitted, if specified will be used as the name of a cookbook where certificates and key file will be loaded from instead of the current cookbook
 
+### OpenVPN scritps
+
+#### Route Up
+
+Allows to provide your own `route-up` script for **OpenVPN client**. Use the following attributes to enable and use  route-up:
+
+  - `config['use_route_up`] - enables route-up script. Default: `false`
+  - `config['route_up_script']` - route-up script name as it stored in the cookbook. Default: `"route-up.sh.erb"`
+  - `config['route_up_cookbook']` - cookbook where route-up template is located. Default: `openvpn`
+
+#### Client Connect
+
+Allows to provide your own `client-connect` script for **OpenVPN server**. Use the following attributes to enable and use client-connect:
+
+  - `config['use_client_connect`] - enables client-connect script. Default: `false`
+  - `config['client_connect_script']` - client-connect script name as it stored in the cookbook. Default: `"client-connect.sh.erb"`
+  - `config['client_connect_cookbook']` - cookbook where client-connect template is located. Default: `openvpn`
+
+**client-connect** script which ships with the openvpn cookbook gives possiblity to setup **iroute**s which might be given as `config['iroute']` array.
+
 
 ### use_community_repos
 
