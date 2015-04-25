@@ -32,6 +32,7 @@ Configures and starts an OpenVPN server for each configuration (config_name => c
 * `config['mode']` - 'routed' (uses server directive) or 'bridged' (uses server-bridge directive)
 * `config['remote_host']` - host name that clients can use to reach the server
 * `config['remote_port']` - port that clients can use to reach the server (may be omitted, defaults to `config['port']`)
+* `config['topology']` - the topology to use in 'routed' mode
 * `config['subnet']` - the IPv4 subnet (*don't* use CIDR here) used for VPN addresses in 'routed' mode
 * `config['subnet6']` - the IPv6 subnet (use CIDR here) used for VPN addresses in 'routed' mode - requires OpenVPN 2.3 or higher
 * `config['server_ip']` - the server's VPN address in 'bridged' mode

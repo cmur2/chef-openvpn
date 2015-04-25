@@ -28,6 +28,7 @@ ifconfig-pool-persist /etc/openvpn/<%= @config_name %>/<%= @config_name %>.ipp
 <% end -%>
 
 <% if @config[:mode] == "routed" -%>
+<%= "topology #{@config[:topology]}" if @config[:topology] %>
 <%= "server #{@config[:subnet]} #{@config[:netmask]}" if @config[:subnet] %>
 <%= "server-ipv6 #{@config[:subnet6]}" if @config[:subnet6] %>
 <% end -%>
