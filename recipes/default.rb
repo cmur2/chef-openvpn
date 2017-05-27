@@ -125,7 +125,7 @@ configurtions.each do |config_name,config|
 
     if user.key? 'iroute'
       if user['iroute'].is_a? Array
-        user['iroute'].each do |rotue| lines << "iroute #{route}" end
+        user['iroute'].each do |route| lines << "iroute #{route}" end
       else
         lines << "iroute #{user['iroute'].to_s}"
       end
